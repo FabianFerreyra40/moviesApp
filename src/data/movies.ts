@@ -32,7 +32,7 @@ export const movies: Movie[] = [
     year: 2017 
   },
   { id: 8, 
-    title: "The Matrix", 
+    title: "Matrix", 
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRvLL9QpFxeMj60n94C91hfJTERSMGb8chaiM_5t2W4r9rm3PqtxNFUkaJnzLFVK99dX0&usqp=CAU", 
     category: "Ciencia Ficción", 
     duration: 136, 
@@ -129,7 +129,7 @@ export const movies: Movie[] = [
     year: 1994
    },
   { id: 6, 
-    title: "The Godfather", 
+    title: "El padrino", 
     image: "https://image.tmdb.org/t/p/original/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", 
     category: "Crimen", 
     duration: 175, 

@@ -1,27 +1,31 @@
+
 .container {
-  padding: 20px;
+  padding: 12px 0;
   background-color: #1a1a1a;
   color: white;
-  
   text-align: center;
+  border-bottom: 1px solid #333;
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  font-size: 20px;
+  margin-bottom: 6px;
 }
 
 .description {
-  font-size: 16px;
+  font-size: 14px;
   color: #aaa;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
-
 .moviesContainer {
-  flex-grow: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 0px;
+  padding: 0 1rem 1rem;
+  box-sizing: border-box;
 }
+
+
+

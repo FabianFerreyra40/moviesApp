@@ -6,11 +6,13 @@ type MovieCardProps = {
   category: string;
   duration: number;
   year: number;
+  onClick: () => void;
+
 };
 
-function MovieCard({ image, title, category, duration, year }: MovieCardProps) {
+function MovieCard({ image, title, category, duration, year, onClick  }: MovieCardProps) {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={onClick}>
       <img className={styles.image} src={image} alt={title} />
       <div className={styles.content}>
         <h2 className={styles.title}>{title}</h2>

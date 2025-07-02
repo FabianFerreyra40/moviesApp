@@ -37,4 +37,43 @@
   text-decoration: underline;
 }
 
+.filtros {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: #181818; 
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filtros input,
+.filtros select {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  font-family: 'Arial', sans-serif;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filtros input::placeholder {
+  color: #aaa;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+  outline: none;
+  border-color: #e50914;
+  box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+}
+
+.filtros select option {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+
+
 

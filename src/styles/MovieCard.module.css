@@ -1,8 +1,8 @@
 .container {
-  width: 200px;     
+  width: 200px;
   min-height: 470px;
   margin: 0;
-  flex: 0 0 200px;   
+  flex: 0 0 200px;
   border: 1px solid #444;
   border-radius: 10px;
   padding: 16px;
@@ -35,9 +35,10 @@
 }
 
 .title {
-  font-size: 18px;
+  font-size: 20px;
   margin: 10px 0 6px;
   font-weight: bold;
+  color: #fff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -45,14 +46,61 @@
 
 .category {
   font-style: italic;
-  color: #4682b4;
+  color: #aaa;
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 6px;
 }
 
-.duration, .year {
-  font-size: 14px;
-  color: #bbb;
+.duration,
+.year {
+  font-size: 15px;
+  color: #999; 
   margin: 2px 0;
 }
+
+.favButton,
+.removeFavButton {
+  margin-top: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.favButton {
+  background: linear-gradient(135deg, #FF5722, #cc5900); /*#e50914, #b0060f */
+  color: #fff;
+}
+
+.favButton:hover {
+  background: #FF6F00; /* antes: #f6121d */
+  transform: scale(1.05);
+}
+
+.favButton:active {
+  transform: scale(0.97);
+}
+
+.removeFavButton {
+  background-color: #2a2a2a;
+  color: #FF6F00; /* antes: #ff4c4c */
+  border: 1px solid #FF6F00; /*#ff4c4c */
+}
+
+.removeFavButton:hover {
+  background-color: #FF6F00; /*#ff4c4c */
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.removeFavButton:active {
+  transform: scale(0.97);
+}
+

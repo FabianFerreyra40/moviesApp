@@ -1,31 +1,35 @@
-
 .container {
-  padding: 12px 0;
-  background-color: #1a1a1a;
-  color: white;
+  margin-bottom: 60px;
+  padding: 0 40px;
   text-align: center;
-  border-bottom: 1px solid #333;
 }
-
 .title {
-  font-size: 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffffff;
   margin-bottom: 6px;
+  letter-spacing: 0.3px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
 }
-
 .description {
-  font-size: 14px;
-  color: #aaa;
-  margin-bottom: 12px;
+  font-size: 1.25rem; 
+  color: #cccccc;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
-
 .moviesContainer {
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
-  gap: 0px;
-  padding: 0 1rem 1rem;
-  box-sizing: border-box;
 }
+
+
+
+
 
 
 

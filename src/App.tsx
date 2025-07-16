@@ -1,104 +1,103 @@
-
-
-import { useState } from "react";
-import Navbar from "./componentes/Navbar";
-import MovieList from "./componentes/MovieList";
-import MovieCard from "./componentes/MovieCard";
-import VideoPlayer from "./componentes/VideoPlayer";
-import { movies } from "./data/movies";
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import AllMovies from "./pages/AllMovies";
+import Series from "./pages/Series";
+import CategoryPage from "./pages/CategoryPage";
+import MovieDetail from "./pages/MovieDetail";
+import VideoPlayerWrapper from "./componentes/VideoPlayerWrapper";
+import Favorites from "./componentes/Favorites";
+import NotFound from "./pages/NotFound";
+import ComingSoon from "./pages/ComingSoon";
 import styles from "./App.module.css";
 
+export type Movie = {
+  id: number;
+  image: string;
+  title: string;
+  category: string;
+  duration: number;
+  year: number;
+};
+
 function App() {
-  const [showPlayer, setShowPlayer] = useState(false);
-  const [titulo, setTitulo] = useState("");
-  const [categoria, setCategoria] = useState("");
+  const [favoritos, setFavoritos] = useState<Movie[]>([]);
 
-  const reproducir = () => setShowPlayer(true);
-  const cerrar = () => setShowPlayer(false);
+  useEffect(() => {
+    try {
+      const data = localStorage.getItem("favoritas");
+      if (data) setFavoritos(JSON.parse(data));
+    } catch {
+      setFavoritos([]);
+    }
+  }, []);
 
-  const filtrar = (cat: string) =>
-    movies.filter(
-      (movie) =>
-        movie.category === cat &&
-        movie.title.toLowerCase().includes(titulo.toLowerCase()) &&
-        (categoria === "" || movie.category === categoria)
-    );
+  const agregarFavorito = (movie: Movie) => {
+    if (!favoritos.some(f => f.id === movie.id)) {
+      const nuevos = [...favoritos, movie];
+      setFavoritos(nuevos);
+      localStorage.setItem("favoritas", JSON.stringify(nuevos));
+    }
+  };
 
-  const cienciaFiccion = filtrar("Ciencia Ficción");
-  const accion = filtrar("Acción");
-  const drama = filtrar("Drama");
-  const crimen = filtrar("Crimen");
+  const quitarFavorito = (movie: Movie) => {
+    const nuevos = favoritos.filter(f => f.id !== movie.id);
+    setFavoritos(nuevos);
+    localStorage.setItem("favoritas", JSON.stringify(nuevos));
+  };
 
-  
-  const noHayResultados = categoria === "" && cienciaFiccion.length === 0 && accion.length === 0 && drama.length === 0 && crimen.length === 0;
+  const borrarTodasFavoritas = () => {
+    setFavoritos([]);
+    localStorage.removeItem("favoritas");
+  };
 
   return (
     <div className={styles.app}>
-      <Navbar
-        onTituloChange={setTitulo}
-        onCategoriaChange={setCategoria}
-        valorTitulo={titulo}
-        valorCategoria={categoria}
-      />
-
-      {categoria === "" && !noHayResultados && (
-        <>
-          {cienciaFiccion.length > 0 && (
-            <MovieList title="Películas de Ciencia Ficción" description="Explora mundos futuristas">
-              {cienciaFiccion.map((movie) => (
-                <MovieCard key={movie.id} {...movie} onClick={reproducir} />
-              ))}
-            </MovieList>
-          )}
-
-          {accion.length > 0 && (
-            <MovieList title="Películas de Acción" description="Adrenalina y emoción en cada escena">
-              {accion.map((movie) => (
-                <MovieCard key={movie.id} {...movie} onClick={reproducir} />
-              ))}
-            </MovieList>
-          )}
-
-          {drama.length > 0 && (
-            <MovieList title="Películas de Drama" description="Historias que llegan al corazón">
-              {drama.map((movie) => (
-                <MovieCard key={movie.id} {...movie} onClick={reproducir} />
-              ))}
-            </MovieList>
-          )}
-
-          {crimen.length > 0 && (
-            <MovieList title="Películas de Crimen" description="Historias intensas y llenas de suspense">
-              {crimen.map((movie) => (
-                <MovieCard key={movie.id} {...movie} onClick={reproducir} />
-              ))}
-            </MovieList>
-          )}
-        </>
-      )}
-
-      {categoria === "" && noHayResultados && (
-        <p className={styles.mensajeSinResultados}>No se encontraron resultados para tu búsqueda</p>
-      )}
-
-      {categoria !== "" && (
-        <MovieList title={`Películas de ${categoria}`} description="">
-          {filtrar(categoria).length > 0 ? (
-            filtrar(categoria).map((movie) => (
-              <MovieCard key={movie.id} {...movie} onClick={reproducir} />
-            ))
-          ) : (
-            <p className={styles.mensajeSinResultados}>No se encontraron resultados</p>
-          )}
-        </MovieList>
-      )}
-
-      {showPlayer && <VideoPlayer onClose={cerrar} />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/peliculas"
+          element={
+            <AllMovies
+              favoritas={favoritos}
+              agregarFavorito={agregarFavorito}   
+              quitarFavorito={quitarFavorito}     
+            />
+          }
+        />
+        <Route path="/proximamente" element={<ComingSoon />} />
+        <Route path="/series" element={<Series />} />
+        <Route
+          path="/category/:categoria"
+          element={
+            <CategoryPage
+              favoritos={favoritos}
+              agregarFavorito={agregarFavorito}
+              quitarFavorito={quitarFavorito}
+            />
+          }
+        />
+        <Route path="/pelicula/:id" element={<MovieDetail />} />
+        <Route path="/pelicula/:id/play" element={<VideoPlayerWrapper />} />
+        <Route
+          path="/favoritos"
+          element={
+            <Favorites
+              favoritas={favoritos}
+              quitarDeFavoritos={quitarFavorito}
+              borrarTodasFavoritas={borrarTodasFavoritas}
+            />
+          }
+        />
+        <Route path="/404" element={<NotFound />} /> 
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
 
 export default App;
+
 
 
 

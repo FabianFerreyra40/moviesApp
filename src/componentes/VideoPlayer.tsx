@@ -72,7 +72,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ onClose }) => {
           <button onClick={handlePlay}>▶️ Reproducir</button>
           <button onClick={handlePause}>⏸️ Pausar</button>
           <button onClick={handleStop}>⏹️ Detener</button>
-          <button onClick={onClose}>❌ Cerrar</button>
+          <button onClick={onClose} className={styles.botonCerrar}>❌ Cerrar</button>
         </div>
       </div>
     </div>

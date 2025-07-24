@@ -38,7 +38,7 @@
 }
 
 .controls button {
-  background-color: #e50914;
+  background-color: #FF5722;/*#e50914*/
   color: white;
   border: none;
   border-radius: 6px;
@@ -50,7 +50,7 @@
 }
 
 .controls button:hover {
-  background-color: #b00610;
+  background-color: #CC5900/*#b00610;*/
 }
 
 .controls button:last-child {
@@ -60,4 +60,6 @@
 .controls button:last-child:hover {
   background-color: #666;
 }
+
+
 

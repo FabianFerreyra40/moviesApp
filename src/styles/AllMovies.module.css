@@ -1,0 +1,17 @@
+.verMasBtn {
+  margin-top: 20px;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  background: none;
+  color: #FF5722; /*#e50914 */
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.verMasBtn:hover {
+  color: #FF7518; /*#f6121d*/
+  text-decoration: none;
+}

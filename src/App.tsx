@@ -9,31 +9,49 @@ import VideoPlayerWrapper from "./componentes/VideoPlayerWrapper";
 import Favorites from "./componentes/Favorites";
 import NotFound from "./pages/NotFound";
 import ComingSoon from "./pages/ComingSoon";
+import CreateMoviePage from "./pages/CreateMoviePage";
+import EditMoviePage from "./pages/EditMoviePage";
 import styles from "./App.module.css";
+import { useCreateMovie } from "./hooks/useCreateMovie";
+import { movieService } from "./services/movieService";
+import { useQueryClient } from "@tanstack/react-query";
+import { moviesDB } from "./data/moviesProf";
 
 export type Movie = {
   id: number;
-  image: string;
   title: string;
-  category: string;
-  duration: number;
   year: number;
+  genre: string[];
+  director: string;
+  rating: number;
+  runtime: number;
+  plot: string;
+  poster: string;
+  cast: string[];
 };
 
 function App() {
-  const [favoritos, setFavoritos] = useState<Movie[]>([]);
-
-  useEffect(() => {
+  const [favoritos, setFavoritos] = useState<Movie[]>(() => {
     try {
       const data = localStorage.getItem("favoritas");
-      if (data) setFavoritos(JSON.parse(data));
+      return data ? JSON.parse(data) : [];
     } catch {
-      setFavoritos([]);
+      return [];
+    }
+  });
+
+  const { mutateAsync: createMovie } = useCreateMovie();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    if (!localStorage.getItem("moviesDB")) {
+      localStorage.setItem("moviesDB", JSON.stringify(moviesDB));
+      console.log("moviesDB initialized in localStorage");
     }
   }, []);
 
   const agregarFavorito = (movie: Movie) => {
-    if (!favoritos.some(f => f.id === movie.id)) {
+    if (!favoritos.some((f) => f.id === movie.id)) {
       const nuevos = [...favoritos, movie];
       setFavoritos(nuevos);
       localStorage.setItem("favoritas", JSON.stringify(nuevos));
@@ -41,7 +59,7 @@ function App() {
   };
 
   const quitarFavorito = (movie: Movie) => {
-    const nuevos = favoritos.filter(f => f.id !== movie.id);
+    const nuevos = favoritos.filter((f) => f.id !== movie.id);
     setFavoritos(nuevos);
     localStorage.setItem("favoritas", JSON.stringify(nuevos));
   };
@@ -49,6 +67,16 @@ function App() {
   const borrarTodasFavoritas = () => {
     setFavoritos([]);
     localStorage.removeItem("favoritas");
+  };
+
+  const handleUpdateMovie = async (updatedMovie: Movie) => {
+    try {
+      await movieService.updateMovie(updatedMovie.id, updatedMovie);
+      queryClient.invalidateQueries({ queryKey: ["movies"] });
+    } catch (error) {
+      console.error("Error actualizando película:", error);
+      throw error;
+    }
   };
 
   return (
@@ -60,8 +88,8 @@ function App() {
           element={
             <AllMovies
               favoritas={favoritos}
-              agregarFavorito={agregarFavorito}   
-              quitarFavorito={quitarFavorito}     
+              agregarFavorito={agregarFavorito}
+              quitarFavorito={quitarFavorito}
             />
           }
         />
@@ -71,11 +99,15 @@ function App() {
           path="/category/:categoria"
           element={
             <CategoryPage
-              favoritos={favoritos}
+              favoritas={favoritos}
               agregarFavorito={agregarFavorito}
               quitarFavorito={quitarFavorito}
             />
           }
+        />
+        <Route
+          path="/editar/:id"
+          element={<EditMoviePage onUpdate={handleUpdateMovie} />}
         />
         <Route path="/pelicula/:id" element={<MovieDetail />} />
         <Route path="/pelicula/:id/play" element={<VideoPlayerWrapper />} />
@@ -89,7 +121,17 @@ function App() {
             />
           }
         />
-        <Route path="/404" element={<NotFound />} /> 
+        <Route
+          path="/crear"
+          element={
+            <CreateMoviePage
+              onCreate={async (movie) => {
+                await createMovie(movie);
+              }}
+            />
+          }
+        />
+        <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
@@ -97,14 +139,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
- 
-
-
-

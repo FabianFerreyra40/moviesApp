@@ -5,10 +5,11 @@ import Navbar from "../componentes/Navbar";
 import styles from "../styles/Home.module.css";
 
 const images = [
+  "/avatar.jpg",
   "/la-isla-siniestra.jpg",
   "/JPEG.jpeg",
   "/rapido-y-furioso.jpg",
-  "/avatar.jpg",
+  
 ];
 
 function Home() {

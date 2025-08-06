@@ -85,11 +85,30 @@
   color: white;               
 }
 
+.crearContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
 
+.botonCrear {
+  display: inline-block;
+  background-color: transparent;
+  color: #FF5722;
+  padding: 16px 36px;  /* MÁS GRANDE que antes */
+  font-size: 1.25rem;  /* Aumenta un poco la letra */
+  font-weight: 700;
+  border: 2px solid #FF5722;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
 
-
-
-
+.botonCrear:hover {
+  background-color: #FF5722;
+  color: white;
+  transform: scale(1.04);
+}
 
 
 

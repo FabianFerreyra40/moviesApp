@@ -53,3 +53,4 @@ function Favorites({ favoritas, quitarDeFavoritos, borrarTodasFavoritas }: Favor
 
 export default Favorites;
 
+

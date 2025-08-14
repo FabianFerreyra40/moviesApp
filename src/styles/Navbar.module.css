@@ -1,18 +1,65 @@
 .navbar {
-  display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  padding: 2rem;
   background-color: #181818;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  padding: 1rem 2rem;
+}
+
+.navContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .logo {
-  font-size: 3rem;
+  font-size: 2.2rem;
   font-weight: bold;
-  color: #e50914;
-  font-family: 'Arial', sans-serif;
-  margin-bottom: 1rem; 
+  color: #FF5722;/*#e50914*/
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  margin-right: 2rem;
+  white-space: nowrap;
+}
+
+.filtros {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filtros input,
+.filtros select {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filtros input::placeholder {
+  color: #aaa;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+  outline: none;
+  border-color: #FF5722;/*#e50914*/
+  box-shadow: 0 0 5px rgba(255, 92, 0, 0.5); /*rgba(229, 9, 20, 0.5) */
+
+}
+.filtros select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' viewBox='0 0 24 24' width='18' height='18' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+  background-size: 1rem;
+  padding-right: 2.2rem;
 }
 
 .navList {
@@ -21,20 +68,23 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  flex-wrap: wrap; 
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  flex-wrap: wrap;
 }
 
-.navList a {
+.navLink {
   color: white;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: 500;
-  transition: color 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
-.navList a:hover {
-  color: #e50914;
+.navLink:hover {
+  color: #FF5722;/*#e50914*/
   text-decoration: underline;
 }
+
+
 
 
